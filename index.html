@@ -444,102 +444,6 @@
       to   { opacity: 1; transform: scale(1); }
     }
 
-    /* ─── RADAR MODAL ─── */
-    #radar-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 600;
-      background: rgba(10,10,20,0.72);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.25s ease, visibility 0.25s;
-      cursor: pointer;
-    }
-
-    #radar-modal.rm-open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .rm-card {
-      background: var(--surface);
-      border-radius: 20px;
-      padding: 32px 36px 26px;
-      max-width: 500px;
-      width: 90vw;
-      cursor: default;
-      position: relative;
-      transform: scale(0.84) translateY(18px);
-      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 32px 80px rgba(0,0,0,0.3);
-    }
-
-    #radar-modal.rm-open .rm-card {
-      transform: scale(1) translateY(0);
-    }
-
-    .rm-title {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .rm-svg-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    .rm-svg-wrap svg {
-      width: 100%;
-      max-width: 360px;
-      height: auto;
-      overflow: visible;
-    }
-
-    .rm-meta {
-      font-size: 10.5px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 16px;
-    }
-
-    .rm-hint {
-      font-size: 10px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 6px;
-      opacity: 0.6;
-    }
-
-    .rm-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 28px;
-      height: 28px;
-      border: none;
-      background: var(--bg);
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, color 0.15s;
-      line-height: 1;
-    }
-
-    .rm-close:hover { background: var(--border); color: var(--text); }
 
     .radar-meta {
       font-size: 10px;
@@ -1333,17 +1237,6 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════ RADAR MODAL ═══════════════════════════ -->
-<div id="radar-modal" role="dialog" aria-modal="true" aria-label="360° Feedback radar chart detail">
-  <div class="rm-card">
-    <button class="rm-close" id="rm-close" aria-label="Close">×</button>
-    <div class="rm-title">360° Career Feedback &nbsp;·&nbsp; Six Dimensions</div>
-    <div class="rm-svg-wrap" id="rm-svg-wrap"></div>
-    <div class="rm-meta">n = 6 respondents &nbsp;·&nbsp; 5-point scale &nbsp;·&nbsp; Jul 2024 – Jun 2026</div>
-    <div class="rm-hint">click anywhere outside to close &nbsp;·&nbsp; esc</div>
-  </div>
-</div>
-
 <!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
 <script>
 /* ─── PROGRESS BAR ─── */
@@ -1803,44 +1696,53 @@ document.addEventListener('visibilitychange', revealHeaders);
   });
 })();
 
-/* ─── RADAR MODAL ─── */
+/* ─── RADAR → LIGHTBOX ─── */
 (function () {
-  var modal   = document.getElementById('radar-modal');
-  var rmClose = document.getElementById('rm-close');
-  var rmWrap  = document.getElementById('rm-svg-wrap');
-  var svgEl   = document.getElementById('radar-svg');
-  if (!modal || !svgEl) return;
+  var svgEl = document.getElementById('radar-svg');
+  var lb    = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lb-img');
+  var lbCnt = document.getElementById('lb-counter');
+  var lbPrev = document.getElementById('lb-prev');
+  var lbNext = document.getElementById('lb-next');
+  if (!svgEl || !lb) return;
 
-  function openModal() {
-    /* Clone the fully-drawn SVG into the modal */
-    rmWrap.innerHTML = '';
+  svgEl.addEventListener('click', function () {
+    /* Clone the SVG, add cream background rect, set explicit size */
     var clone = svgEl.cloneNode(true);
     clone.removeAttribute('id');
-    clone.style.cssText = 'opacity:1;cursor:default;transform:none;filter:none;transition:none;max-width:100%;';
-    /* Re-fire the polygon reveal animation on the clone */
-    var poly = clone.querySelector('.data-poly');
-    if (poly) {
-      poly.style.animation = 'none';
-      void clone.offsetWidth;
-      poly.style.animation = 'polyReveal 0.65s cubic-bezier(0.22,1,0.36,1) forwards';
-    }
-    rmWrap.appendChild(clone);
-    modal.classList.add('rm-open');
+    clone.setAttribute('width', '760');
+    clone.setAttribute('height', '600');
+    clone.style.cssText = '';
+
+    var ns = 'http://www.w3.org/2000/svg';
+    var bg = document.createElementNS(ns, 'rect');
+    bg.setAttribute('width', '100%');
+    bg.setAttribute('height', '100%');
+    bg.setAttribute('fill', '#f0ebe3');
+    bg.setAttribute('rx', '12');
+    clone.insertBefore(bg, clone.firstChild);
+
+    /* Serialize to data URL and open in lightbox */
+    var svgStr = new XMLSerializer().serializeToString(clone);
+    lbImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+    lbImg.alt = '360° Career Feedback · Six Dimensions';
+    lbCnt.textContent = '360° Career Feedback · n=6 · 5-pt scale';
+    lbPrev.style.visibility = 'hidden';
+    lbNext.style.visibility = 'hidden';
+    lb.dataset.radarMode = '1';
+    lb.classList.add('lb-open');
     document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.classList.remove('rm-open');
-    setTimeout(function () { rmWrap.innerHTML = ''; }, 300);
-    document.body.style.overflow = '';
-  }
-
-  svgEl.addEventListener('click', openModal);
-  rmClose.addEventListener('click', function (e) { e.stopPropagation(); closeModal(); });
-  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.classList.contains('rm-open')) closeModal();
   });
+
+  /* Restore nav buttons when lightbox closes (via MutationObserver) */
+  new MutationObserver(function () {
+    if (!lb.classList.contains('lb-open') && lb.dataset.radarMode === '1') {
+      lbPrev.style.visibility = '';
+      lbNext.style.visibility = '';
+      lbCnt.textContent = '';
+      delete lb.dataset.radarMode;
+    }
+  }).observe(lb, { attributes: true, attributeFilter: ['class'] });
 })();
 </script>
 
