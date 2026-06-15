@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Umrania · Career 360° · Saathealth 2024–2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0ebe3;
+      --surface: #ffffff;
+      --border: #e3ddd5;
+      --text: #1a1a1a;
+      --muted: #8a8680;
+      --accent: #3daa7e;
+      --accent-bg: #eaf6f0;
+      --danger: #cc4444;
+      --dark: #1c1c1c;
+      --tag-bg: #eae6e0;
+      --chat-gap: 20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 28px;
+    }
+
+    .nav-identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-nav {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .nav-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .btn-new-chat {
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      border-radius: 18px;
+      padding: 7px 15px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ─── SECTION WRAPPER ─── */
+    .page-section {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 52px 28px;
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-nt {
+      display: flex;
+      align-items: baseline;
+      gap: 11px;
+    }
+
+    .section-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    .section-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .section-url {
+      font-size: 11.5px;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── CHAT THREAD ─── */
+    .chat-thread {
+      display: flex;
+      flex-direction: column;
+      gap: var(--chat-gap);
+    }
+
+    /* User message */
+    .msg-user {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .bubble-user {
+      background: var(--dark);
+      color: #fff;
+      border-radius: 16px 16px 3px 16px;
+      padding: 11px 17px;
+      max-width: 68%;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .avatar-user {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* Sakhi message */
+    .msg-sakhi {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .avatar-sakhi {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .sakhi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px 16px 16px 16px;
+      padding: 18px 20px;
+      flex: 1;
+    }
+
+    .sakhi-name {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin-bottom: 12px;
+    }
+
+    .sakhi-card p {
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .sakhi-card p:last-of-type { margin-bottom: 0; }
+
+    .lead-text {
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+    }
+
+    /* ─── TAGS ─── */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--tag-bg);
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .tag-accent {
+      background: var(--accent-bg);
+      color: var(--accent);
+    }
+
+    /* ─── TECH CHIPS ─── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 13px 0;
+    }
+
+    .chip {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ─── DIVIDER ─── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    /* ─── SCREENSHOT CARD ─── */
+    .screenshot-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 14px 0;
+      background: #0f0f14;
+    }
+
+    .screenshot-card img {
+      width: 100%;
+      display: block;
+      max-height: 300px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .screenshot-meta {
+      padding: 8px 13px;
+      background: var(--bg);
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── QUOTE CALLOUT ─── */
+    .quote-callout {
+      background: var(--bg);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin: 13px 0;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .quote-attr {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+      font-style: normal;
+    }
+
+    /* ─── 360° RADAR SECTION ─── */
+    .feedback-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin: 18px 0 16px;
+    }
+
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .radar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .radar-sublabel {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
+
+    #radar-svg {
+      max-width: 280px;
+      width: 100%;
+    }
+
+    .radar-meta {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .quotes-col {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .quotes-sublabel {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .quote-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .quote-card .attr {
+      font-size: 10.5px;
+      color: var(--muted);
+      font-style: normal;
+      margin-top: 5px;
+    }
+
+    /* ─── SECTION NAV LINKS ─── */
+    .section-nav {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s;
+    }
+
+    .nav-link:last-child { border-bottom: none; }
+    .nav-link:hover { color: var(--accent); }
+
+    .nav-link-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 20px;
+    }
+
+    /* ─── VERBATIM BLOCKS ─── */
+    .verbatim-block {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px 18px;
+      margin: 11px 0;
+    }
+
+    .verbatim-block.tinted { background: #f9f4ed; }
+
+    .verbatim-source {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .verbatim-block p {
+      font-style: italic;
+      font-size: 13.5px;
+      margin-bottom: 7px;
+      line-height: 1.65;
+    }
+
+    .verbatim-block p:last-of-type { margin-bottom: 0; }
+
+    .verbatim-attr {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-top: 10px;
+      font-style: normal;
+    }
+
+    /* ─── ALL VOICES GRID ─── */
+    .voices-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 20px 0 12px;
+    }
+
+    .voices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .voice-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 14px;
+    }
+
+    .voice-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .voice-role {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .voice-quote {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* ─── PHOTO GRID ─── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 14px 0;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 185px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── SUBHEAD INSIDE CARD ─── */
+    .card-subhead {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 18px 0 10px;
+    }
+
+    .card-subhead:first-child { margin-top: 0; }
+
+    /* ─── SYNTHESIS BOX ─── */
+    .synthesis-box {
+      background: linear-gradient(135deg, #eaf6f0 0%, #f0ebe3 100%);
+      border: 1px solid #c8e8da;
+      border-radius: 10px;
+      padding: 15px 18px;
+      margin-top: 16px;
+    }
+
+    .synthesis-box p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* ─── FOOTER ─── */
+    .page-footer {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 20px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-text {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .top-nav { padding: 10px 16px; }
+      .page-section { padding: 36px 16px; }
+      .feedback-grid { grid-template-columns: 1fr; }
+      .voices-grid { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .bubble-user { max-width: 84%; }
+      .section-url { display: none; }
+      .nav-label { font-size: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .photo-grid img { height: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ NAV ═══════════════════════════════════ -->
+<nav class="top-nav">
+  <div class="nav-identity">
+    <img src="photos/Om-Profile-Photo.jpeg" alt="Om Umrania" class="avatar-nav">
+    <span class="nav-label">Om Umrania &nbsp;·&nbsp; Saathealth &nbsp;·&nbsp; Jul 2024 – Apr 2026</span>
+  </div>
+  <button class="btn-new-chat">+ New Chat</button>
+</nav>
+
+<!-- ═══════════════════════════════ SECTION 01 ═══════════════════════════════ -->
+<div class="page-section" id="s01">
+  <div class="section-header">
+    <div class="section-nt">
+      <span class="section-num">01</span>
+      <h1 class="section-title">Overview</h1>
+    </div>
+    <span class="section-url">the-honest-conversation.pen</span>
+  </div>
+
+  <div class="chat-thread">
+
+    <!-- User -->
+    <div class="msg-user">
+      <div class="bubble-user">Hey Sakhi, what did Om actually do at Saathealth?</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <!-- Sakhi: Overview -->
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+
+        <p class="lead-text">Om worked across AI, analytics, and execution — building chatbot workflows, creating dashboards and reports, and helping different teams turn ideas into usable systems.</p>
+
+        <p>He shipped Sakhi AI, supported the RF&nbsp;×&nbsp;Anemia careplan through launch, explored messaging platforms, helped teams take data-driven decisions, and ran AI agents in parallel. Most of all, he learnt and grew here at Saathealth with people across teams.</p>
+
+        <p>Here are Om's 360° Feedback responses. Six colleagues shared how they experienced working with him. The hexagon shows the numbers, and the cards highlight what stood out.</p>
+
+        <!-- 360° FEEDBACK -->
+        <div class="feedback-label">360° FEEDBACK Responses</div>
+
+        <div class="feedback-grid">
+
+          <!-- Radar -->
+          <div class="radar-col">
+            <div class="radar-sublabel">the numbers &nbsp;·&nbsp; six-axis hexagon</div>
+            <svg id="radar-svg" viewBox="0 0 340 290" aria-label="360 feedback radar chart"></svg>
+            <div class="radar-meta">n = 6 respondents &nbsp;·&nbsp; 5-point scale &nbsp;·&nbsp; lowest axis in red</div>
+          </div>
+
+          <!-- Quotes -->
+          <div class="quotes-col">
+            <div class="quotes-sublabel">the words &nbsp;·&nbsp; six voices</div>
+
+            <div class="quote-card">
+              "His ability to think the impossible is amazing."
+              <div class="attr">— 360° respondent</div>
+            </div>
+
+            <div class="quote-card">
+              "Very agile, committed and fast thinker."
+              <div class="attr">— 360° respondent</div>
+            </div>
+
+            <div class="quote-card">
+              "The energy is high. The initiative is high. The consistency is high."
+              <div class="attr">— Girija, Team peer</div>
+            </div>
+
+            <div class="quote-card">
+              "Takes initiative beyond assigned tasks."
+              <div class="attr">— 360° respondent</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Section nav -->
+        <div class="section-nav">
+          <a href="#s02" class="nav-link">
+            <span class="nav-link-num">02</span>
+            Proof of Work — Sakhi AI + RF Anemia
+          </a>
+          <a href="#s03" class="nav-link">
+            <span class="nav-link-num">03</span>
+            Systems, Feedback Responses, and Lessons
+          </a>
+          <a href="#s04" class="nav-link">
+            <span class="nav-link-num">04</span>
+            Moments — photographs from the last two years
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════ SECTION 02 ═══════════════════════════════ -->
+<div class="page-section" id="s02">
+  <div class="section-header">
+    <div class="section-nt">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Proof of Work</h2>
+    </div>
+    <span class="section-url">sakhi-ai-beta.vercel.app</span>
+  </div>
+
+  <div class="chat-thread">
+
+    <!-- Sakhi AI -->
+    <div class="msg-user">
+      <div class="bubble-user">Start with Sakhi AI.</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+
+        <div class="screenshot-card">
+          <img src="photos/SakhiAI-Interface.jpeg" alt="Sakhi AI Interface screenshot">
+          <div class="screenshot-meta">SakhiAI Interface.jpeg &nbsp;·&nbsp; JPG &nbsp;·&nbsp; UI capture</div>
+        </div>
+
+        <p>Saathealth's first production AI app. Hospicash sales-training chatbot, live at sakhi&#8209;ai&#8209;beta.vercel.app. Stack: Next.js + TypeScript, Gemini 2.5 Flash for reasoning and multi-modal understanding, Sarvam AI Bulbul v3 for Indian-language STT&nbsp;+&nbsp;TTS. Demoed at the Feb 2026 all-hands.</p>
+
+        <div class="chips">
+          <span class="chip">Next.js</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Gemini 2.5 Flash</span>
+          <span class="chip">Sarvam Bulbul v3</span>
+        </div>
+
+        <div class="quote-callout">
+          "The Sakhi Chatbot — very impressive."
+          <div class="quote-attr">— 360° respondent</div>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">cross-referenced</span>
+          <span class="tag tag-accent">360° form</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RF Anemia -->
+    <div class="msg-user">
+      <div class="bubble-user">And the RF × Saathealth Anemia Careplan?</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+
+        <p>Supported the 12-week WhatsApp careplan through to completion. My role was managing and unblocking — working closely with Cheryl, Anjali, Aditi, and the REAN Foundation team to see it across the line. The clinical engagement numbers (88.76% Week-1 engagement, 66.67% Week-12 retention across 67 enrolled women) belong to that team; I helped the program ship and the dashboard reach them.</p>
+
+        <div class="tag-row">
+          <span class="tag">sourced · REAN Foundation team</span>
+          <span class="tag tag-accent">verified</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════ SECTION 03 ═══════════════════════════════ -->
+<div class="page-section" id="s03">
+  <div class="section-header">
+    <div class="section-nt">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Systems, Feedback &amp; Lessons</h2>
+    </div>
+    <span class="section-url">the-honest-conversation.pen</span>
+  </div>
+
+  <div class="chat-thread">
+
+    <!-- Weekly data -->
+    <div class="msg-user">
+      <div class="bubble-user">What about the weekly data reporting?</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+        <p>Recorded marketplace and product data, then presented it in weekly and monthly reviews — week-on-week movement, retention snapshots, first- and second-order cuts of the underlying datasets to surface patterns worth discussing. I was the reporter, not the decider.</p>
+        <div class="tag-row">
+          <span class="tag">chain-of-thought · weekly review notes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="msg-user">
+      <div class="bubble-user">WhatsApp messaging — what changed?</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+        <p>Ran a longitudinal journey for 150–200 users across different products over a 12-week window. The discovery was about engagement rate — where people actually stay vs. drop off. That changed how we drafted outbound: bold&nbsp;/ italics for scannable emphasis, a tighter emoji system, and the rule of one key message per image.</p>
+        <div class="tag-row">
+          <span class="tag">reasoning · 12-week longitudinal cohort</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OmniVec -->
+    <div class="msg-user">
+      <div class="bubble-user">Anything on the Meta / OmniVec-ICMR side?</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+        <p>For OmniVec-ICMR, proposed a sample-data dashboard for the campaign — kept the claims to what was actually built, not the downstream reach. Bigger thing there was the Saathealth Language Translation chatbot: built as a Gemini Gem trained on how Varun frames outbound — the humour, the Saathealth positioning, the voice — so translations across 7 Indian languages retain brand tone rather than reading machine-flat.</p>
+        <div class="tag-row">
+          <span class="tag">Gemini Gem · trained on Varun's voice</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 360° Communication -->
+    <div class="msg-user">
+      <div class="bubble-user">The 360° scored me 2.0 on Communication. How am I reading that?</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi &nbsp;·&nbsp; verbatim from the 360°</div>
+
+        <!-- Verbatim: formal form -->
+        <div class="verbatim-block tinted">
+          <div class="verbatim-source">Formal 360° form &nbsp;(n = 2)</div>
+          <p>"A lot of improvement needed in communication and clarity of thoughts, especially to someone without tech understanding."</p>
+          <p>"Step back and think neutrally before you execute."</p>
+          <p>"With more clarity in thoughts and understanding of the larger picture, Om will do wonders."</p>
+          <div class="verbatim-attr">reference · 360° FEEDBACK FORM (n=2)</div>
+        </div>
+
+        <!-- Verbatim: Sukhada -->
+        <div class="verbatim-block" style="margin-top:10px;">
+          <div class="verbatim-source">Sukhada &nbsp;·&nbsp; direct message</div>
+          <p>"Lead with the destination — state your conclusion or main recommendation first, and then back it up with supporting data if asked. Don't take the listener on the journey of how you got there; just give them the destination."</p>
+          <p>"The Rule of 3: before you speak, pause and force yourself to group your thoughts into a maximum of three bullet points. If you have ten points, find a way to group them into three themes."</p>
+          <div class="verbatim-attr">— Sukhada</div>
+        </div>
+
+        <!-- Verbatim: Girija -->
+        <div class="verbatim-block" style="margin-top:10px;">
+          <div class="verbatim-source">Girija &nbsp;·&nbsp; direct conversation</div>
+          <p>"The energy is high. The initiative is high. The consistency is high. But unless the effectivity of the problem is not there, what's the use of that solution?"</p>
+          <p>"Selling conclusions vs. sharing process — current output reads as experimentation notes rather than a sold, distilled recommendation."</p>
+          <div class="verbatim-attr">— Girija, Team peer</div>
+        </div>
+
+        <!-- Verbatim: Aakash -->
+        <div class="verbatim-block" style="margin-top:10px;">
+          <div class="verbatim-source">Aakash Ganju &nbsp;·&nbsp; Co-Founder &amp; CEO</div>
+          <p>"Solve your boss's problem and your boss's boss's problem. And be able to sell the simplest of the simple thing."</p>
+          <div class="verbatim-attr">— Aakash Ganju, Co-Founder &amp; CEO</div>
+        </div>
+
+        <!-- Verbatim: Santosh -->
+        <div class="verbatim-block" style="margin-top:10px;">
+          <div class="verbatim-source">Santosh &nbsp;·&nbsp; senior colleague</div>
+          <p>"Understanding what is needed at the hour and just doing it — things need to get done. That is something you should build on."</p>
+          <p>"Write more. It helps you understand your thought process better. Right for you first — but it gives you clarity of thought."</p>
+          <div class="verbatim-attr">— Santosh</div>
+        </div>
+
+        <!-- Synthesis -->
+        <div class="synthesis-box">
+          <p>Fair. Curiosity 4.5 and Ownership 4.0 got the work shipped — the 2.0 decides how far the work travels after it ships. That's the gap I'm taking into the MBA: tighter writing, data storytelling, and presenting to non-technical rooms. Lead with the destination, not the journey.</p>
+        </div>
+
+        <!-- All 6 voices -->
+        <div class="voices-label">All Six Voices</div>
+
+        <div class="voices-grid">
+          <div class="voice-card">
+            <div class="voice-name">Respondent A</div>
+            <div class="voice-role">Cross-functional collaborator &nbsp;·&nbsp; 360° Form</div>
+            <div class="voice-quote">"His ability to think the impossible is amazing. With more clarity in thoughts and understanding of the larger picture, Om will do wonders."</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-name">Respondent B</div>
+            <div class="voice-role">Cross-functional collaborator &nbsp;·&nbsp; 360° Form</div>
+            <div class="voice-quote">"Open to experimenting and trying new things. Focus on building and maintaining good lanes of communication."</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-name">Girija</div>
+            <div class="voice-role">Direct team peer</div>
+            <div class="voice-quote">"The energy is high. The initiative is high. The consistency is high. But the effectivity of the problem definition needs to match that energy."</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-name">Aakash Ganju</div>
+            <div class="voice-role">Co-Founder &amp; CEO</div>
+            <div class="voice-quote">"Solve your boss's problem and your boss's boss's problem. Be able to sell the simplest of the simple thing."</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-name">Sukhada</div>
+            <div class="voice-role">Colleague</div>
+            <div class="voice-quote">"You have a natural drive to understand how things work and genuine curiosity for tackling complex problems. Never lose that spark!"</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-name">Santosh</div>
+            <div class="voice-role">Senior colleague</div>
+            <div class="voice-quote">"Understanding what is needed at the hour and just doing it. Write more — it gives you clarity of thought."</div>
+          </div>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">n = 6 respondents · 5-point scale · Jul 2024–Jun 2026</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════ SECTION 04 ═══════════════════════════════ -->
+<div class="page-section" id="s04">
+  <div class="section-header">
+    <div class="section-nt">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Moments</h2>
+    </div>
+    <span class="section-url">moments-from-saathealth.album</span>
+  </div>
+
+  <div class="chat-thread">
+
+    <div class="msg-user">
+      <div class="bubble-user">Show me the moments from the last two years.</div>
+      <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
+    </div>
+
+    <div class="msg-sakhi">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi</div>
+        <p>Here are the best memories from the last two years.</p>
+
+        <div class="photo-grid">
+          <img src="photos/1-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/2-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/3-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/4-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/5-Center.JPG" alt="Saathealth team moment">
+          <img src="photos/6-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/7-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/8-Photo.jpg" alt="Saathealth team moment">
+          <img src="photos/9-Photo.jpg" alt="Saathealth team moment">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════════ -->
+<footer class="page-footer">
+  <span class="footer-text">June 2026 &nbsp;·&nbsp; Om Umrania &nbsp;·&nbsp; Saathealth 2024–2026</span>
+  <span class="footer-text">04 / 04 &nbsp;·&nbsp; end of chat</span>
+</footer>
+
+<!-- ═══════════════════════════════ RADAR CHART JS ═══════════════════════════ -->
+<script>
+(function () {
+  var svg = document.getElementById('radar-svg');
+  if (!svg) return;
+
+  var ns  = 'http://www.w3.org/2000/svg';
+  var cx  = 170;  // center x (viewBox 340 wide)
+  var cy  = 148;  // center y
+  var maxR = 90;  // max radius
+
+  var axes = [
+    { label: 'Curiosity',         value: 4.5, angle: 0,   red: false },
+    { label: 'Problem Solving',   value: 3.5, angle: 60,  red: false },
+    { label: 'Execute',           value: 3.5, angle: 120, red: false },
+    { label: 'Ownership',         value: 4.0, angle: 180, red: false },
+    { label: 'Collaboration',     value: 3.0, angle: 240, red: false },
+    { label: 'Communication',     value: 2.0, angle: 300, red: true  }
+  ];
+
+  function pt(angle, r) {
+    var rad = (angle - 90) * Math.PI / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
+
+  function el(tag, attrs) {
+    var e = document.createElementNS(ns, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  function pts(r) {
+    return axes.map(function (a) {
+      var p = pt(a.angle, r);
+      return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+    }).join(' ');
+  }
+
+  // Background grid (5 rings)
+  for (var i = 1; i <= 5; i++) {
+    svg.appendChild(el('polygon', {
+      points: pts((maxR / 5) * i),
+      fill: 'none',
+      stroke: '#ddd8d0',
+      'stroke-width': '1'
+    }));
+  }
+
+  // Axis spokes
+  axes.forEach(function (a) {
+    var p = pt(a.angle, maxR);
+    svg.appendChild(el('line', {
+      x1: cx, y1: cy,
+      x2: p.x.toFixed(1), y2: p.y.toFixed(1),
+      stroke: '#ddd8d0',
+      'stroke-width': '1'
+    }));
+  });
+
+  // Data polygon
+  var dataPts = axes.map(function (a) {
+    var p = pt(a.angle, (a.value / 5) * maxR);
+    return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+  }).join(' ');
+
+  svg.appendChild(el('polygon', {
+    points: dataPts,
+    fill: '#3daa7e',
+    'fill-opacity': '0.18',
+    stroke: '#3daa7e',
+    'stroke-width': '2',
+    'stroke-linejoin': 'round'
+  }));
+
+  // Data dots
+  axes.forEach(function (a) {
+    var p = pt(a.angle, (a.value / 5) * maxR);
+    svg.appendChild(el('circle', {
+      cx: p.x.toFixed(1),
+      cy: p.y.toFixed(1),
+      r: '3.5',
+      fill: a.red ? '#cc4444' : '#3daa7e'
+    }));
+  });
+
+  // Labels + values
+  var labelR = maxR + 22;
+  axes.forEach(function (a) {
+    var p = pt(a.angle, labelR);
+    var anchor;
+    var norm = ((a.angle % 360) + 360) % 360;
+    if (norm === 0 || norm === 180)  anchor = 'middle';
+    else if (norm > 0 && norm < 180) anchor = 'start';
+    else                             anchor = 'end';
+
+    var color = a.red ? '#cc4444' : '#777570';
+
+    // Split long labels
+    var words = a.label.split(' ');
+    var lines = words.length > 1 ? [words[0], words.slice(1).join(' ')] : [a.label];
+    var lineH = 11;
+    var totalH = lines.length * lineH;
+    var startY = p.y - (totalH / 2) + 4;
+
+    var g = el('g', {});
+
+    lines.forEach(function (line, i) {
+      var t = el('text', {
+        x: p.x.toFixed(1),
+        y: (startY + i * lineH).toFixed(1),
+        'text-anchor': anchor,
+        'font-size': '9.5',
+        fill: color,
+        'font-family': '-apple-system, BlinkMacSystemFont, sans-serif',
+        'font-weight': a.red ? '600' : '400'
+      });
+      t.textContent = line;
+      g.appendChild(t);
+    });
+
+    // Value below label
+    var valY = startY + lines.length * lineH + 1;
+    var vt = el('text', {
+      x: p.x.toFixed(1),
+      y: valY.toFixed(1),
+      'text-anchor': anchor,
+      'font-size': '9',
+      fill: a.red ? '#cc4444' : '#3daa7e',
+      'font-family': '-apple-system, BlinkMacSystemFont, sans-serif',
+      'font-weight': '600'
+    });
+    vt.textContent = a.value.toFixed(1);
+    g.appendChild(vt);
+
+    svg.appendChild(g);
+  });
+})();
+</script>
+
+</body>
+</html>
