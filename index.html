@@ -1386,12 +1386,12 @@ document.addEventListener('visibilitychange', revealHeaders);
    Scroll-triggered for all pairs except the first (auto-plays after intro).
    ═════════════════════════════════════════════════════════════ */
 (function () {
-  var SPEED_USER  = 26;   /* ms per char — fast typing */
-  var SPEED_SAKHI = 8;    /* ms per char — LLM stream speed */
-  var SPEED_VAR   = 6;    /* random variance so it feels organic */
-  var DOT_DELAY   = 720;  /* ms to show typing dots before streaming */
-  var Q_TO_A_GAP  = 340;  /* ms pause between user done and Sakhi starts */
-  var RICH_STAGGER = 90;  /* ms between each rich element appearing */
+  var SPEED_USER  = 18;   /* ms per char — fast typing */
+  var SPEED_SAKHI = 6;    /* ms per char — LLM stream speed */
+  var SPEED_VAR   = 4;    /* random variance so it feels organic */
+  var DOT_DELAY   = 500;  /* ms to show typing dots before streaming */
+  var Q_TO_A_GAP  = 238;  /* ms pause between user done and Sakhi starts */
+  var RICH_STAGGER = 63;  /* ms between each rich element appearing */
 
   /* ── Mark element visible (triggers CSS transition) ─────── */
   function reveal(el) { el.classList.add('msg-visible'); }
@@ -1524,7 +1524,7 @@ document.addEventListener('visibilitychange', revealHeaders);
     var textEl  = document.getElementById('sakhi-intro-text');
     var llmWrap = document.getElementById('llm-row-wrap');
     var msg = "Hi! I'm Sakhi. Om built me as Saathealth's AI trainer for Hospicash. I'll walk you through his two years here: the work, the numbers, and the honest feedback.";
-    typeInto(textEl, msg, 11, 4, function () {
+    typeInto(textEl, msg, 8, 3, function () {
       if (llmWrap) {
         llmWrap.style.display = '';
         llmWrap.style.opacity = '0';
