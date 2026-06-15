@@ -781,19 +781,11 @@
        HERO OVERLAY (ChatGPT-style landing)
        ════════════════════════════════════ */
     #hero-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 900;
+      width: 100%;
+      min-height: 100vh;
       background: #060606;
       display: flex;
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    #hero-overlay.hero-exit {
-      opacity: 0;
-      transform: translateY(-18px);
-      pointer-events: none;
-    }
-    #hero-overlay.hero-gone { display: none; }
 
     /* ── Sidebar ── */
     #hero-sidebar {
@@ -993,8 +985,11 @@
 </head>
 <body>
 
-<!-- ══════════════════ HERO OVERLAY (shows for first ~4s) ══════════════════ -->
-<div id="hero-overlay" role="dialog" aria-label="Sakhi AI landing">
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- ══════════════════════════ HERO SECTION ══════════════════════════════════ -->
+<section id="hero-overlay" aria-label="Sakhi AI — Career 360° by Om Umrania">
 
   <!-- Left sidebar -->
   <div id="hero-sidebar">
@@ -1080,10 +1075,7 @@
       scroll to explore
     </div>
   </div>
-</div>
-
-<!-- PROGRESS BAR -->
-<div id="progress-bar"></div>
+</section>
 
 <!-- ═══════════════════════════════════ NAV ═══════════════════════════════════ -->
 <nav class="top-nav" id="top-nav">
@@ -1526,44 +1518,42 @@ document.addEventListener('visibilitychange', revealHeaders);
    Fires "hero:exited" event so StreamEngine knows when to start.
    ══════════════════════════════════════════════════════════════════ */
 (function () {
-  var hero   = document.getElementById('hero-overlay');
-  var input  = document.getElementById('hero-input');
+  var hero  = document.getElementById('hero-overlay');
+  var input = document.getElementById('hero-input');
   if (!hero) { window.dispatchEvent(new CustomEvent('hero:exited')); return; }
 
-  var gone = false;
+  /* ── Scroll to a section (used by pills and avatar click) ── */
+  window.heroScrollTo = function (id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+  /* Avatar / send-button click → scroll to first content section */
+  window.heroExit = function () { window.heroScrollTo('s01'); };
 
-  function heroExit() {
-    if (gone) return;
-    gone = true;
-    hero.classList.add('hero-exit');
-    setTimeout(function () {
-      hero.classList.add('hero-gone');
-      window.dispatchEvent(new CustomEvent('hero:exited'));
-    }, 650);
+  /* ── Fire hero:exited via IntersectionObserver when hero leaves viewport ── */
+  var fired = false;
+  function onHeroLeft() {
+    if (fired) return;
+    fired = true;
+    window.dispatchEvent(new CustomEvent('hero:exited'));
+  }
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) onHeroLeft();
+    }, { threshold: 0 });
+    obs.observe(hero);
+  } else {
+    /* Fallback for browsers without IntersectionObserver */
+    window.addEventListener('scroll', function () {
+      if (window.scrollY >= hero.offsetHeight * 0.6) onHeroLeft();
+    }, { passive: true });
   }
 
-  /* Expose for onclick attributes */
-  window.heroExit = heroExit;
-  window.heroScrollTo = function (id) {
-    heroExit();
-    setTimeout(function () {
-      var el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 420);
-  };
-
-  /* Exit on scroll */
-  window.addEventListener('scroll', function onScroll() {
-    if (window.scrollY > 8) { heroExit(); window.removeEventListener('scroll', onScroll); }
-  }, { passive: true });
-
-  /* Exit on Enter key in input */
+  /* ── Auto-type the query in the input bar ── */
   if (input) {
     input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') heroExit();
+      if (e.key === 'Enter') window.heroExit();
     });
-
-    /* Auto-type query starting at 1.4 s */
     var query = 'Tell me about Om\'s 360° feedback from Saathealth.';
     var qi = 0;
     function typeQuery() {
@@ -1574,9 +1564,6 @@ document.addEventListener('visibilitychange', revealHeaders);
     }
     setTimeout(typeQuery, 1400);
   }
-
-  /* Auto-exit at 4.2 s */
-  setTimeout(heroExit, 4200);
 })();
 
 /* ═══════════════════════ STREAM ENGINE ═══════════════════════
@@ -1786,15 +1773,6 @@ document.addEventListener('visibilitychange', revealHeaders);
   }
 
   window.addEventListener('hero:exited', startAfterHero, { once: true });
-
-  /* Fallback: if no hero overlay on page, start after 1.5 s */
-  if (!document.getElementById('hero-overlay')) {
-    setTimeout(function () {
-      runIntro(function () {
-        if (pairs.length > 0) animatePair(pairs[0]);
-      });
-    }, 1500);
-  }
 })();
 
 /* ─── RADAR CHART ─── */
