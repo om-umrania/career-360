@@ -1079,32 +1079,46 @@ window.addEventListener('scroll', function () {
   nav.classList.toggle('scrolled', window.scrollY > 20);
 }, { passive: true });
 
-/* ─── SECTION HEADER ACCENT UNDERLINE ─── */
-var hdrObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (e) {
-    if (e.isIntersecting) e.target.classList.add('hdr-visible');
-  });
-}, { threshold: 0.5 });
+/* ─── REVEAL HELPERS ─── */
+function inOrNearViewport(el, margin) {
+  var rect = el.getBoundingClientRect();
+  return rect.top < window.innerHeight + (margin || 0);
+}
 
-['hdr-01','hdr-02','hdr-03','hdr-04'].forEach(function (id) {
-  var el = document.getElementById(id);
-  if (el) hdrObserver.observe(el);
-});
+/* ─── SECTION HEADER ACCENT UNDERLINE ─── */
+function revealHeaders() {
+  ['hdr-01','hdr-02','hdr-03','hdr-04'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el && inOrNearViewport(el, 80)) el.classList.add('hdr-visible');
+  });
+}
+revealHeaders();
+setTimeout(revealHeaders, 120);
+window.addEventListener('scroll', revealHeaders, { passive: true });
+document.addEventListener('visibilitychange', revealHeaders);
 
 /* ─── CHAT MESSAGE ENTRANCE ANIMATION ─── */
-var msgObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (e) {
-    if (e.isIntersecting) {
-      e.target.classList.add('msg-visible');
-      msgObserver.unobserve(e.target);
+var allMsgs = document.querySelectorAll('.msg-user, .msg-sakhi');
+
+allMsgs.forEach(function (el, i) {
+  el._msgDelay = Math.min((i % 4) * 75, 220);
+});
+
+function revealMsgs() {
+  allMsgs.forEach(function (el) {
+    if (!el.classList.contains('msg-visible') && inOrNearViewport(el, 60)) {
+      el.style.transitionDelay = el._msgDelay + 'ms';
+      el.classList.add('msg-visible');
     }
   });
-}, { threshold: 0.12 });
+}
 
-document.querySelectorAll('.msg-user, .msg-sakhi').forEach(function (el, i) {
-  el.style.transitionDelay = Math.min(i % 3 * 80, 200) + 'ms';
-  msgObserver.observe(el);
-});
+/* Fire immediately, after 120ms, on scroll, and on tab focus */
+revealMsgs();
+setTimeout(revealMsgs, 120);
+setTimeout(revealMsgs, 400);
+window.addEventListener('scroll', revealMsgs, { passive: true });
+document.addEventListener('visibilitychange', revealMsgs);
 
 /* ─── RADAR CHART ─── */
 (function () {
@@ -1242,18 +1256,19 @@ document.querySelectorAll('.msg-user, .msg-sakhi').forEach(function (el, i) {
     svg.appendChild(g);
   });
 
-  /* Animate on scroll into view */
-  var radarObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('radar-in');
-        poly.style.animation = 'polyReveal 0.7s cubic-bezier(0.22,1,0.36,1) forwards';
-        radarObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
+  /* Animate on scroll into view — with fallback for background tabs */
+  function revealRadar() {
+    if (svg.classList.contains('radar-in')) return;
+    if (inOrNearViewport(svg, 100)) {
+      svg.classList.add('radar-in');
+      poly.style.animation = 'polyReveal 0.7s cubic-bezier(0.22,1,0.36,1) forwards';
+    }
+  }
 
-  radarObserver.observe(svg);
+  revealRadar();
+  setTimeout(revealRadar, 200);
+  window.addEventListener('scroll', revealRadar, { passive: true });
+  document.addEventListener('visibilitychange', revealRadar);
 })();
 
 /* ─── LIGHTBOX ─── */
