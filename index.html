@@ -227,17 +227,16 @@
       margin-top: 12px;
     }
     .ai-logo {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2.5px solid var(--surface);
-      margin-left: -9px;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      object-fit: contain;
+      margin-left: -5px;
       position: relative;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, z-index 0s;
+      transition: transform 0.18s ease, z-index 0s;
     }
     .ai-logo:first-child { margin-left: 0; }
-    .ai-logo:hover { transform: translateY(-4px) scale(1.22); z-index: 10; box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+    .ai-logo:hover { transform: translateY(-3px) scale(1.2); z-index: 10; }
 
     /* ─── SAKHI INTRO ─── */
     #sakhi-intro { margin-bottom: 4px; }
@@ -760,322 +759,90 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 640px) {
-      .top-nav { padding: 10px 16px; }
-      .page-section { padding: 36px 16px; }
+      /* Nav */
+      .top-nav { padding: 9px 14px; }
+      .nav-label { font-size: 11.5px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .btn-new-chat { padding: 6px 12px; font-size: 12px; }
+
+      /* Sections */
+      .page-section { padding: 28px 14px; }
+      .section-header { margin-bottom: 20px; gap: 6px; }
+      .section-num { font-size: 11px; }
+      .section-title { font-size: 20px; }
+      .section-url { display: none; }
+
+      /* Chat thread */
+      .chat-thread { gap: 10px; }
+      .msg-user { gap: 8px; }
+      .msg-sakhi { gap: 8px; }
+      .avatar-sakhi { width: 32px; height: 32px; }
+      .avatar-user  { width: 28px; height: 28px; }
+      .bubble-user { max-width: 82%; font-size: 14px; padding: 10px 14px; }
+      .sakhi-card { padding: 14px; }
+      .sakhi-name { font-size: 10px; margin-bottom: 8px; }
+      .sakhi-card p { font-size: 14px; line-height: 1.6; }
+      .sakhi-card .lead-text { font-size: 14.5px; }
+
+      /* Grids */
       .feedback-grid { grid-template-columns: 1fr; }
       .voices-grid { grid-template-columns: 1fr; }
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
-      .bubble-user { max-width: 84%; }
-      .section-url { display: none; }
+
+      /* Chips */
+      .chips { gap: 5px; }
+      .chip { font-size: 11px; padding: 3px 9px; }
+
+      /* Tags */
+      .tag { font-size: 10.5px; padding: 2px 8px; }
+
+      /* Screenshot card */
+      .screenshot-card { border-radius: 8px; }
+      .screenshot-card img { max-height: 220px; }
+
+      /* Radar */
+      #radar-svg { width: 100%; height: auto; }
+      .radar-col { width: 100%; }
+
+      /* Verbatim */
+      .verbatim-block { padding: 12px 14px; }
+      .verbatim-block p { font-size: 13.5px; }
+
+      /* Voice cards */
+      .voice-card { padding: 12px 14px; }
+
+      /* Quote callout */
+      .quote-callout { font-size: 13.5px; padding: 12px 14px; }
+
+      /* Section nav */
+      .section-nav { gap: 6px; }
+      .nav-link { font-size: 12.5px; padding: 10px 12px; }
+
+      /* AI logo stack */
+      .ai-stack { margin-top: 12px; padding-top: 10px; }
+      .ai-logo { width: 20px; height: 20px; margin-left: -4px; }
+
+      /* Lightbox */
       .lb-prev { left: 8px; }
       .lb-next { right: 8px; }
       .lb-close { top: 8px; right: 8px; }
     }
 
     @media (max-width: 480px) {
+      .page-section { padding: 22px 12px; }
+      .nav-label { font-size: 11px; max-width: 160px; }
       .photo-item img { height: 130px; }
       .voices-grid { grid-template-columns: 1fr; }
+      .sakhi-card p, .sakhi-card .lead-text { font-size: 13.5px; }
+      .bubble-user { font-size: 13.5px; }
+      .section-title { font-size: 18px; }
     }
 
-    /* ════════════════════════════════════
-       HERO OVERLAY (ChatGPT-style landing)
-       ════════════════════════════════════ */
-    #hero-overlay {
-      width: 100%;
-      min-height: 100vh;
-      background: #060606;
-      display: flex;
-    }
-
-    /* ── Sidebar ── */
-    #hero-sidebar {
-      width: 54px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 14px 0 20px;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      flex-shrink: 0;
-    }
-    .hero-logo-btn {
-      width: 34px; height: 34px;
-      border-radius: 9px;
-      overflow: hidden;
-      border: none; background: none; padding: 0;
-      cursor: pointer; margin-bottom: 12px;
-    }
-    .hero-logo-btn img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-sb-btn {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      border: none; background: none;
-      color: rgba(255,255,255,0.35);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.14s, color 0.14s;
-      margin-bottom: 2px;
-    }
-    .hero-sb-btn:hover {
-      background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.85);
-    }
-    .hero-sb-divider {
-      width: 28px; height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin: 8px 0;
-    }
-
-    /* ── Main center ── */
-    #hero-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 0 28px;
-      overflow: hidden;
-    }
-    #hero-user-avatar {
-      position: absolute;
-      top: 16px; right: 20px;
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
-      cursor: pointer;
-      border: 2px solid rgba(255,255,255,0.12);
-      transition: border-color 0.15s;
-    }
-    #hero-user-avatar:hover { border-color: rgba(255,255,255,0.35); }
-
-    #hero-center {
-      width: 100%; max-width: 660px;
-      display: flex; flex-direction: column; align-items: center;
-    }
-
-    .hero-heading {
-      color: rgba(255,255,255,0.93);
-      font-size: clamp(22px, 3.5vw, 32px);
-      font-weight: 600;
-      text-align: center;
-      margin: 0 0 26px;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-    }
-
-    /* ── Input bar ── */
-    .hero-input-bar {
-      width: 100%;
-      background: #1c1c1c;
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 26px;
-      padding: 13px 13px 13px 18px;
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 14px;
-      transition: border-color 0.2s;
-      cursor: text;
-    }
-    .hero-input-bar:focus-within { border-color: rgba(255,255,255,0.22); }
-    .hero-plus-btn {
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.22);
-      background: none; color: rgba(255,255,255,0.6);
-      font-size: 17px; line-height: 1;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: border-color 0.14s, color 0.14s;
-    }
-    .hero-plus-btn:hover { border-color: rgba(255,255,255,0.55); color: #fff; }
-    .hero-input-field {
-      flex: 1; background: none; border: none; outline: none;
-      color: rgba(255,255,255,0.88); font-size: 14.5px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      caret-color: #22c55e;
-    }
-    .hero-input-field::placeholder { color: rgba(255,255,255,0.3); }
-
-    .hero-input-right { display: flex; align-items: center; gap: 6px; }
-    .hero-dot-wrap {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 11px; color: rgba(255,255,255,0.35);
-      padding: 3px 9px; border-radius: 12px;
-      background: rgba(255,255,255,0.05);
-      white-space: nowrap;
-    }
-    .hero-green-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 5px rgba(34,197,94,0.5);
-      animation: dot-pulse 2.2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-    @keyframes dot-pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.45; }
-    }
-    .hero-mic-btn {
-      width: 30px; height: 30px; border-radius: 50%;
-      border: none; background: none;
-      color: rgba(255,255,255,0.4);
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: color 0.14s;
-    }
-    .hero-mic-btn:hover { color: rgba(255,255,255,0.8); }
-    .hero-send-btn {
-      width: 32px; height: 32px; border-radius: 50%;
-      border: none; background: #fff;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; flex-shrink: 0;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .hero-send-btn:hover { transform: scale(1.06); box-shadow: 0 2px 10px rgba(255,255,255,0.18); }
-    .hero-send-btn img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* ── Quick action pills ── */
-    .hero-pills {
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-    }
-    .hero-pill {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px;
-      color: rgba(255,255,255,0.65);
-      font-size: 13px; font-weight: 500;
-      padding: 8px 15px;
-      cursor: pointer;
-      display: flex; align-items: center; gap: 7px;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    .hero-pill:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.2);
-      color: #fff;
-    }
-    .hero-pill svg { opacity: 0.65; }
-
-    /* ── Bottom metadata & scroll hint ── */
-    #hero-meta {
-      position: absolute; bottom: 24px;
-      color: rgba(255,255,255,0.18);
-      font-size: 11px; letter-spacing: 0.04em;
-      text-align: center;
-    }
-    .hero-scroll-hint {
-      position: absolute; bottom: 40px;
-      left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      color: rgba(255,255,255,0.18); font-size: 10.5px; letter-spacing: 0.04em;
-      animation: hint-float 2.4s ease-in-out infinite;
-      animation-delay: 2.5s; opacity: 0;
-    }
-    @keyframes hint-float {
-      0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
-      50%       { opacity: 0.3; transform: translateX(-50%) translateY(5px); }
-    }
-
-    @media (max-width: 600px) {
-      #hero-sidebar { width: 44px; }
-      .hero-heading { font-size: 20px; margin-bottom: 20px; }
-      .hero-pill { font-size: 12px; padding: 7px 12px; }
-    }
   </style>
 </head>
 <body>
 
 <!-- PROGRESS BAR -->
 <div id="progress-bar"></div>
-
-<!-- ══════════════════════════ HERO SECTION ══════════════════════════════════ -->
-<section id="hero-overlay" aria-label="Sakhi AI — Career 360° by Om Umrania">
-
-  <!-- Left sidebar -->
-  <div id="hero-sidebar">
-    <button class="hero-logo-btn" title="Sakhi AI" onclick="heroExit()">
-      <img src="photos/Sakhi-Avatar.png" alt="Sakhi">
-    </button>
-    <button class="hero-sb-btn" title="New chat">
-      <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5L16.5 5.5L8 14H6V12L14.5 3.5Z"/><path d="M13 5L15 7"/></svg>
-    </button>
-    <button class="hero-sb-btn" title="Search">
-      <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="4.5"/><path d="M14.5 14.5L11.2 11.2"/></svg>
-    </button>
-    <div class="hero-sb-divider"></div>
-    <button class="hero-sb-btn" title="History">
-      <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M10 7V10.5L12 12"/></svg>
-    </button>
-    <button class="hero-sb-btn" title="Highlights">
-      <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><polygon points="10,3 11.8,7.6 16.8,7.6 12.9,10.4 14.2,15 10,12.2 5.8,15 7.1,10.4 3.2,7.6 8.2,7.6"/></svg>
-    </button>
-  </div>
-
-  <!-- Main panel -->
-  <div id="hero-main">
-
-    <!-- Om's profile avatar top-right -->
-    <img src="photos/Om-Profile-Photo.jpeg" id="hero-user-avatar" alt="Om" onclick="heroExit()" title="Enter">
-
-    <!-- Centered content -->
-    <div id="hero-center">
-      <h1 class="hero-heading">What's on your mind today?</h1>
-
-      <!-- Input bar -->
-      <div class="hero-input-bar" onclick="document.getElementById('hero-input').focus()">
-        <button class="hero-plus-btn" title="Attach" onclick="event.stopPropagation()">+</button>
-        <input
-          type="text"
-          id="hero-input"
-          class="hero-input-field"
-          placeholder="Ask Sakhi about Om's two years at Saathealth..."
-          autocomplete="off"
-        >
-        <div class="hero-input-right">
-          <div class="hero-dot-wrap">
-            <span class="hero-green-dot"></span>
-            Sakhi AI
-          </div>
-          <button class="hero-mic-btn" title="Voice input">
-            <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="7" y="2.5" width="6" height="9" rx="3"/><path d="M4 10.5a6 6 0 0 0 12 0M10 16.5V19"/></svg>
-          </button>
-          <button class="hero-send-btn" title="Enter" onclick="heroExit()">
-            <img src="photos/Sakhi-Avatar.png" alt="Enter">
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick action pills -->
-      <div class="hero-pills">
-        <button class="hero-pill" onclick="heroScrollTo('s01')">
-          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><polygon points="8,2 9.6,6.2 14.2,6.2 10.6,8.8 11.8,13 8,10.4 4.2,13 5.4,8.8 1.8,6.2 6.4,6.2"/></svg>
-          360° Feedback
-        </button>
-        <button class="hero-pill" onclick="heroScrollTo('s02')">
-          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4.5" width="12" height="9" rx="1.5"/><path d="M5.5 4.5V3.5A1 1 0 0 1 6.5 2.5H9.5A1 1 0 0 1 10.5 3.5V4.5"/></svg>
-          Proof of Work
-        </button>
-        <button class="hero-pill" onclick="heroScrollTo('s03')">
-          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4H14M2 8H10M2 12H12"/></svg>
-          The honest feedback
-        </button>
-        <button class="hero-pill" onclick="heroScrollTo('s04')">
-          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><path d="M1.5 7H14.5"/><path d="M6 3V13"/></svg>
-          Moments
-        </button>
-      </div>
-    </div>
-
-    <!-- Bottom metadata line -->
-    <div id="hero-meta">6 colleagues &nbsp;·&nbsp; 5 dimensions &nbsp;·&nbsp; Jul 2024–Apr 2026 &nbsp;·&nbsp; Saathealth 360° Report</div>
-
-    <!-- Scroll hint -->
-    <div class="hero-scroll-hint">
-      <svg viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 5L7 9L11 5"/></svg>
-      scroll to explore
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════════════════════ NAV ═══════════════════════════════════ -->
 <nav class="top-nav" id="top-nav">
@@ -1512,59 +1279,6 @@ setTimeout(revealHeaders, 120);
 window.addEventListener('scroll', revealHeaders, { passive: true });
 document.addEventListener('visibilitychange', revealHeaders);
 
-/* ═══════════════════════════ HERO OVERLAY ═══════════════════════════
-   Full-screen dark landing, ChatGPT-style.
-   Auto-types a query, then exits after ~4 s (or on first scroll/click).
-   Fires "hero:exited" event so StreamEngine knows when to start.
-   ══════════════════════════════════════════════════════════════════ */
-(function () {
-  var hero  = document.getElementById('hero-overlay');
-  var input = document.getElementById('hero-input');
-  if (!hero) { window.dispatchEvent(new CustomEvent('hero:exited')); return; }
-
-  /* ── Scroll to a section (used by pills and avatar click) ── */
-  window.heroScrollTo = function (id) {
-    var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-  /* Avatar / send-button click → scroll to first content section */
-  window.heroExit = function () { window.heroScrollTo('s01'); };
-
-  /* ── Fire hero:exited via IntersectionObserver when hero leaves viewport ── */
-  var fired = false;
-  function onHeroLeft() {
-    if (fired) return;
-    fired = true;
-    window.dispatchEvent(new CustomEvent('hero:exited'));
-  }
-  if ('IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) onHeroLeft();
-    }, { threshold: 0 });
-    obs.observe(hero);
-  } else {
-    /* Fallback for browsers without IntersectionObserver */
-    window.addEventListener('scroll', function () {
-      if (window.scrollY >= hero.offsetHeight * 0.6) onHeroLeft();
-    }, { passive: true });
-  }
-
-  /* ── Auto-type the query in the input bar ── */
-  if (input) {
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') window.heroExit();
-    });
-    var query = 'Tell me about Om\'s 360° feedback from Saathealth.';
-    var qi = 0;
-    function typeQuery() {
-      if (qi < query.length) {
-        input.value += query[qi++];
-        setTimeout(typeQuery, 44 + Math.random() * 18 - 9);
-      }
-    }
-    setTimeout(typeQuery, 1400);
-  }
-})();
 
 /* ═══════════════════════ STREAM ENGINE ═══════════════════════
    Gives every Q&A pair an LLM-style animation:
@@ -1618,7 +1332,11 @@ document.addEventListener('visibilitychange', revealHeaders);
       return c !== nameEl && c.tagName !== 'P';
     });
 
-    /* Hide rich elements and paragraph text until streamed */
+    /* Screenshot card (if present) reveals FIRST before text streams */
+    var screenshotEl = card.querySelector('.screenshot-card');
+    var laterRich = richEls.filter(function (el) { return el !== screenshotEl; });
+
+    /* Hide everything except the screenshot card initially */
     richEls.forEach(function (el) { el.classList.add('stream-hidden'); });
     paras.forEach(function (p) {
       p._savedText = p.textContent;
@@ -1633,47 +1351,54 @@ document.addEventListener('visibilitychange', revealHeaders);
     setTimeout(function () {
       if (dots.parentNode) dots.parentNode.removeChild(dots);
 
-      /* Reveal rich elements staggered */
+      /* Reveal remaining rich elements staggered after paragraphs */
       function showRich() {
-        richEls.forEach(function (el, i) {
+        laterRich.forEach(function (el, i) {
           setTimeout(function () {
             el.classList.add('stream-show');
-            /* After last rich element, dispatch scroll so radar & headers re-check */
-            if (i === richEls.length - 1) {
+            if (i === laterRich.length - 1) {
               window.dispatchEvent(new Event('scroll'));
               onDone && onDone();
             }
           }, i * RICH_STAGGER);
         });
-        if (!richEls.length) { window.dispatchEvent(new Event('scroll')); onDone && onDone(); }
+        if (!laterRich.length) { window.dispatchEvent(new Event('scroll')); onDone && onDone(); }
       }
 
-      if (!paras.length) { showRich(); return; }
-
-      /* Stream paragraphs one after the other */
-      var pIdx = 0;
-      function streamNext() {
-        if (pIdx >= paras.length) { showRich(); return; }
-        var para = paras[pIdx];
-        var text = para._savedText || '';
-        para.style.opacity = '1';
-        var cursor = document.createElement('span');
-        cursor.className = 'stream-cursor';
-        para.appendChild(cursor);
-        var ci = 0;
-        function tick() {
-          if (ci < text.length) {
-            para.insertBefore(document.createTextNode(text[ci++]), cursor);
-            setTimeout(tick, SPEED_SAKHI + (Math.random() * SPEED_VAR));
-          } else {
-            if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
-            pIdx++;
-            setTimeout(streamNext, 130);
+      function streamParas() {
+        if (!paras.length) { showRich(); return; }
+        var pIdx = 0;
+        function streamNext() {
+          if (pIdx >= paras.length) { showRich(); return; }
+          var para = paras[pIdx];
+          var text = para._savedText || '';
+          para.style.opacity = '1';
+          var cursor = document.createElement('span');
+          cursor.className = 'stream-cursor';
+          para.appendChild(cursor);
+          var ci = 0;
+          function tick() {
+            if (ci < text.length) {
+              para.insertBefore(document.createTextNode(text[ci++]), cursor);
+              setTimeout(tick, SPEED_SAKHI + (Math.random() * SPEED_VAR));
+            } else {
+              if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+              pIdx++;
+              setTimeout(streamNext, 130);
+            }
           }
+          tick();
         }
-        tick();
+        streamNext();
       }
-      streamNext();
+
+      /* If this card has a screenshot, reveal the image first */
+      if (screenshotEl) {
+        screenshotEl.classList.add('stream-show');
+        setTimeout(streamParas, 380);
+      } else {
+        streamParas();
+      }
     }, DOT_DELAY);
   }
 
@@ -1763,16 +1488,12 @@ document.addEventListener('visibilitychange', revealHeaders);
   /* Scroll triggers for pairs 1+ — set up immediately so observer is ready */
   setupScrollTriggers(pairs);
 
-  /* Start Sakhi intro AFTER hero exits (receives hero:exited event) */
-  function startAfterHero() {
-    setTimeout(function () {
-      runIntro(function () {
-        if (pairs.length > 0) animatePair(pairs[0]);
-      });
-    }, 500);
-  }
-
-  window.addEventListener('hero:exited', startAfterHero, { once: true });
+  /* Start Sakhi intro on page load after a short delay */
+  setTimeout(function () {
+    runIntro(function () {
+      if (pairs.length > 0) animatePair(pairs[0]);
+    });
+  }, 800);
 })();
 
 /* ─── RADAR CHART ─── */
