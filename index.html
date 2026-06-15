@@ -156,6 +156,7 @@
 
     /* ─── CHAT THREAD ─── */
     .chat-thread { display: flex; flex-direction: column; gap: 20px; }
+    .msg-sakhi { margin-bottom: 10px; }
 
     /* ─── CHAT REVEAL ANIMATION ─── */
     .msg-user, .msg-sakhi {
@@ -285,20 +286,9 @@
     }
 
     .sakhi-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 3px 16px 16px 16px;
-      padding: 18px 20px;
       flex: 1;
-    }
-
-    .sakhi-name {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      margin-bottom: 12px;
+      min-width: 0;
+      padding-top: 2px;
     }
 
     .sakhi-card p {
@@ -778,8 +768,6 @@
       .avatar-sakhi { width: 32px; height: 32px; }
       .avatar-user  { width: 28px; height: 28px; }
       .bubble-user { max-width: 82%; font-size: 14px; padding: 10px 14px; }
-      .sakhi-card { padding: 14px; }
-      .sakhi-name { font-size: 10px; margin-bottom: 8px; }
       .sakhi-card p { font-size: 14px; line-height: 1.6; }
       .sakhi-card .lead-text { font-size: 14.5px; }
 
@@ -833,6 +821,7 @@
       .photo-item img { height: 130px; }
       .voices-grid { grid-template-columns: 1fr; }
       .sakhi-card p, .sakhi-card .lead-text { font-size: 13.5px; }
+      .msg-sakhi { margin-bottom: 6px; }
       .bubble-user { font-size: 13.5px; }
       .section-title { font-size: 18px; }
     }
@@ -869,7 +858,6 @@
     <div class="msg-sakhi" id="sakhi-intro">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi &nbsp;·&nbsp; Saathealth AI</div>
         <p id="sakhi-intro-text"></p>
         <div id="llm-row-wrap" style="display:none;">
           <div class="ai-stack-intro">
@@ -889,8 +877,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
-
         <p class="lead-text">Om worked across AI, analytics, and execution: building chatbot workflows, creating dashboards and reports, and helping different teams turn ideas into usable systems.</p>
 
         <p>He shipped Sakhi AI, supported the RF&nbsp;×&nbsp;Anemia careplan through launch, explored messaging platforms, helped teams take data-driven decisions, and ran AI agents in parallel. Most of all, he learnt and grew here at Saathealth with people across teams.</p>
@@ -976,7 +962,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
         <div class="screenshot-card">
           <img src="photos/SakhiAI-Interface.jpeg" alt="Sakhi AI Interface screenshot">
           <div class="screenshot-meta">SakhiAI Interface.jpeg &nbsp;·&nbsp; JPG &nbsp;·&nbsp; UI capture</div>
@@ -1010,7 +995,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
         <p>Supported the 12-week WhatsApp careplan through to completion. My role was managing and unblocking, working closely with the Saathealth and REAN Foundation teams to see it across the line. The clinical engagement numbers (88.76% Week-1 engagement, 66.67% Week-12 retention across 67 enrolled women) belong to that team; I helped the program ship and the dashboard reach them.</p>
         <div class="tag-row">
           <span class="tag">sourced · REAN Foundation team</span>
@@ -1045,7 +1029,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
         <p>Recorded marketplace and product data, then presented it in weekly and monthly reviews: week-on-week movement, retention snapshots, first- and second-order cuts of the underlying datasets to surface patterns worth discussing. I was the reporter, not the decider.</p>
         <div class="tag-row"><span class="tag">chain-of-thought · weekly review notes</span></div>
         <div class="ai-stack">
@@ -1062,7 +1045,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
         <p>Ran a longitudinal journey for 150–200 users across different products over a 12-week window. The discovery was about engagement rate, where people actually stay vs. drop off. That changed how we drafted outbound: bold&nbsp;/ italics for scannable emphasis, a tighter emoji system, and the rule of one key message per image.</p>
         <div class="tag-row"><span class="tag">reasoning · 12-week longitudinal cohort</span></div>
         <div class="ai-stack">
@@ -1079,7 +1061,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
         <p>For OmniVec-ICMR, built a sample-data dashboard for the campaign. This project is still ongoing and I'll keep contributing to it as it develops. On the language side, built the Saathealth Language Translation chatbot as a Gemini Gem trained on how Varun frames outbound content: the tone, humour and positioning, so translations across 7 Indian languages feel like Saathealth rather than just a translation.</p>
         <div class="tag-row"><span class="tag">Gemini Gem · trained on brand voice</span><span class="tag">ongoing</span></div>
         <div class="ai-stack">
@@ -1097,7 +1078,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi &nbsp;·&nbsp; verbatim from the 360°</div>
 
         <div class="verbatim-block tinted">
           <div class="verbatim-source">Formal 360° form &nbsp;·&nbsp; n = 2</div>
@@ -1206,7 +1186,6 @@
     <div class="msg-sakhi">
       <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
       <div class="sakhi-card">
-        <div class="sakhi-name">Sakhi</div>
         <p>Here are the best memories from the last two years.</p>
 
         <div class="photo-grid" id="photo-grid">
