@@ -160,13 +160,97 @@
     .msg-user, .msg-sakhi {
       opacity: 0;
       transform: translateY(22px);
-      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-
     .msg-user.msg-visible, .msg-sakhi.msg-visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ─── STREAM CURSOR ─── */
+    .stream-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      margin-left: 1px;
+      animation: cur-blink 0.65s step-end infinite;
+      border-radius: 1px;
+    }
+    @keyframes cur-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ─── TYPING INDICATOR ─── */
+    .typing-dots {
+      display: flex; gap: 5px; padding: 4px 2px; align-items: center;
+    }
+    .typing-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--muted);
+      animation: dot-bounce 1.2s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dot-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30%           { transform: translateY(-7px); opacity: 1; }
+    }
+
+    /* ─── STREAM-HIDDEN (rich elements revealed after text streams) ─── */
+    .stream-hidden {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+    .stream-hidden.stream-show {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    /* ─── LLM ICON CHIPS ─── */
+    .llm-row-label {
+      font-size: 10.5px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 14px 0 7px;
+    }
+    .llm-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .llm-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 10px 4px 5px;
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 500;
+      cursor: default;
+      transition: border-color 0.18s, color 0.18s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .llm-chip:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+    .llm-chip svg { flex-shrink: 0; border-radius: 5px; }
+
+    /* ─── SAKHI INTRO ─── */
+    #sakhi-intro { margin-bottom: 4px; }
+    #sakhi-intro-text { min-height: 1.4em; }
 
     /* User bubble */
     .msg-user {
@@ -728,6 +812,66 @@
   </div>
 
   <div class="chat-thread">
+
+    <!-- SAKHI INTRO GREETING -->
+    <div class="msg-sakhi" id="sakhi-intro">
+      <img src="photos/Sakhi-Avatar.png" alt="Sakhi" class="avatar-sakhi">
+      <div class="sakhi-card">
+        <div class="sakhi-name">Sakhi &nbsp;·&nbsp; Saathealth AI</div>
+        <p id="sakhi-intro-text"></p>
+        <div id="llm-row-wrap" style="display:none;">
+          <div class="llm-row-label">AI landscape Om has worked with</div>
+          <div class="llm-chips-row">
+            <!-- Claude -->
+            <div class="llm-chip" title="Claude by Anthropic">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#CC785C"/><path d="M5 7 Q9 4.5 13 7 M5 11 Q9 13.5 13 11" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+              Claude
+            </div>
+            <!-- ChatGPT -->
+            <div class="llm-chip" title="ChatGPT by OpenAI">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#111"/><path d="M9 3.5 L12.5 5.5 L14 9 L12.5 12.5 L9 14.5 L5.5 12.5 L4 9 L5.5 5.5 Z" stroke="white" stroke-width="1.2" fill="none"/><circle cx="9" cy="9" r="2.2" fill="white"/></svg>
+              ChatGPT
+            </div>
+            <!-- Gemini -->
+            <div class="llm-chip" title="Gemini by Google">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="white" stroke="#e0e0e0" stroke-width="1"/><path d="M9 2.5 L10.2 9 L9 15.5 L7.8 9 Z" fill="#4285F4"/><path d="M2.5 9 L9 7.8 L15.5 9 L9 10.2 Z" fill="#EA4335"/></svg>
+              Gemini
+            </div>
+            <!-- Perplexity -->
+            <div class="llm-chip" title="Perplexity AI">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#131316"/><path d="M9 3 L15 6.5 L15 11.5 L9 15 L3 11.5 L3 6.5 Z" stroke="#20B8CD" stroke-width="1.2" fill="none"/><line x1="9" y1="3" x2="9" y2="15" stroke="#20B8CD" stroke-width="1.2"/><line x1="3" y1="6.5" x2="15" y2="11.5" stroke="#20B8CD" stroke-width="0.9" opacity="0.5"/><line x1="15" y1="6.5" x2="3" y2="11.5" stroke="#20B8CD" stroke-width="0.9" opacity="0.5"/></svg>
+              Perplexity
+            </div>
+            <!-- Grok -->
+            <div class="llm-chip" title="Grok by xAI">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#000"/><text x="9" y="13" text-anchor="middle" font-size="8.5" font-weight="900" fill="white" font-family="-apple-system,sans-serif">xAI</text></svg>
+              Grok
+            </div>
+            <!-- Llama -->
+            <div class="llm-chip" title="Llama by Meta">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#0082FB"/><path d="M3.5 9 Q3.5 6 6 6 Q8.5 6 9 9 Q9.5 12 12 12 Q14.5 12 14.5 9 Q14.5 6 12 6 Q9.5 6 9 9 Q8.5 12 6 12 Q3.5 12 3.5 9 Z" stroke="white" stroke-width="1.5" fill="none"/></svg>
+              Llama
+            </div>
+            <!-- Mistral -->
+            <div class="llm-chip" title="Mistral AI">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#FF7000"/><rect x="4" y="4" width="4" height="4" fill="white" rx="0.8"/><rect x="10" y="4" width="4" height="4" fill="white" rx="0.8" opacity="0.75"/><rect x="4" y="10" width="4" height="4" fill="white" rx="0.8" opacity="0.75"/><rect x="10" y="10" width="4" height="4" fill="white" rx="0.8" opacity="0.5"/></svg>
+              Mistral
+            </div>
+            <!-- DeepSeek -->
+            <div class="llm-chip" title="DeepSeek">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#1A56D9"/><text x="9" y="13" text-anchor="middle" font-size="9" font-weight="900" fill="white" font-family="-apple-system,sans-serif">DS</text></svg>
+              DeepSeek
+            </div>
+            <!-- Copilot -->
+            <div class="llm-chip" title="Copilot by Microsoft">
+              <svg width="18" height="18" viewBox="0 0 18 18"><rect width="18" height="18" rx="5" fill="#0078D4"/><circle cx="9" cy="9" r="4" stroke="white" stroke-width="1.5" fill="none"/><circle cx="9" cy="9" r="1.5" fill="white"/></svg>
+              Copilot
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="msg-user">
       <div class="bubble-user">Hey Sakhi, what did Om actually do at Saathealth?</div>
       <img src="photos/Om-Profile-Photo.jpeg" alt="Om" class="avatar-user">
@@ -1097,28 +1241,211 @@ setTimeout(revealHeaders, 120);
 window.addEventListener('scroll', revealHeaders, { passive: true });
 document.addEventListener('visibilitychange', revealHeaders);
 
-/* ─── CHAT MESSAGE ENTRANCE ANIMATION ─── */
-var allMsgs = document.querySelectorAll('.msg-user, .msg-sakhi');
+/* ═══════════════════════ STREAM ENGINE ═══════════════════════
+   Gives every Q&A pair an LLM-style animation:
+   - User bubble: fast typewriter
+   - Sakhi: typing indicator → character-by-character text stream
+   - Rich elements (images, chips, grids): staggered reveal after text
+   Scroll-triggered for all pairs except the first (auto-plays after intro).
+   ═════════════════════════════════════════════════════════════ */
+(function () {
+  var SPEED_USER  = 26;   /* ms per char — fast typing */
+  var SPEED_SAKHI = 8;    /* ms per char — LLM stream speed */
+  var SPEED_VAR   = 6;    /* random variance so it feels organic */
+  var DOT_DELAY   = 720;  /* ms to show typing dots before streaming */
+  var Q_TO_A_GAP  = 340;  /* ms pause between user done and Sakhi starts */
+  var RICH_STAGGER = 90;  /* ms between each rich element appearing */
 
-allMsgs.forEach(function (el, i) {
-  el._msgDelay = Math.min((i % 4) * 75, 220);
-});
+  /* ── Mark element visible (triggers CSS transition) ─────── */
+  function reveal(el) { el.classList.add('msg-visible'); }
 
-function revealMsgs() {
-  allMsgs.forEach(function (el) {
-    if (!el.classList.contains('msg-visible') && inOrNearViewport(el, 60)) {
-      el.style.transitionDelay = el._msgDelay + 'ms';
-      el.classList.add('msg-visible');
+  /* ── Typing-dots indicator ───────────────────────────────── */
+  function makeDots() {
+    var d = document.createElement('div');
+    d.className = 'typing-dots';
+    d.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    return d;
+  }
+
+  /* ── Typewriter into any element ─────────────────────────── */
+  function typeInto(el, text, spd, variance, onDone) {
+    el.textContent = '';
+    var i = 0;
+    function tick() {
+      if (i < text.length) {
+        el.textContent += text[i++];
+        setTimeout(tick, spd + (Math.random() * variance - variance / 2));
+      } else { onDone && onDone(); }
     }
-  });
-}
+    tick();
+  }
 
-/* Fire immediately, after 120ms, on scroll, and on tab focus */
-revealMsgs();
-setTimeout(revealMsgs, 120);
-setTimeout(revealMsgs, 400);
-window.addEventListener('scroll', revealMsgs, { passive: true });
-document.addEventListener('visibilitychange', revealMsgs);
+  /* ── Stream paragraphs then stagger-reveal rich elements ─── */
+  function streamSakhiCard(sakhiEl, onDone) {
+    reveal(sakhiEl);
+    var card = sakhiEl.querySelector('.sakhi-card');
+    if (!card) { onDone && onDone(); return; }
+
+    var nameEl = card.querySelector('.sakhi-name');
+    /* Direct-child <p> tags are streamed; everything else is rich content */
+    var paras   = Array.from(card.querySelectorAll(':scope > p'));
+    var richEls = Array.from(card.children).filter(function (c) {
+      return c !== nameEl && c.tagName !== 'P';
+    });
+
+    /* Hide rich elements and paragraph text until streamed */
+    richEls.forEach(function (el) { el.classList.add('stream-hidden'); });
+    paras.forEach(function (p) {
+      p._savedText = p.textContent;
+      p.textContent = '';
+      p.style.opacity = '0';
+    });
+
+    /* Show typing dots */
+    var dots = makeDots();
+    card.insertBefore(dots, nameEl ? nameEl.nextSibling : card.firstChild);
+
+    setTimeout(function () {
+      if (dots.parentNode) dots.parentNode.removeChild(dots);
+
+      /* Reveal rich elements staggered */
+      function showRich() {
+        richEls.forEach(function (el, i) {
+          setTimeout(function () {
+            el.classList.add('stream-show');
+            /* After last rich element, dispatch scroll so radar & headers re-check */
+            if (i === richEls.length - 1) {
+              window.dispatchEvent(new Event('scroll'));
+              onDone && onDone();
+            }
+          }, i * RICH_STAGGER);
+        });
+        if (!richEls.length) { window.dispatchEvent(new Event('scroll')); onDone && onDone(); }
+      }
+
+      if (!paras.length) { showRich(); return; }
+
+      /* Stream paragraphs one after the other */
+      var pIdx = 0;
+      function streamNext() {
+        if (pIdx >= paras.length) { showRich(); return; }
+        var para = paras[pIdx];
+        var text = para._savedText || '';
+        para.style.opacity = '1';
+        var cursor = document.createElement('span');
+        cursor.className = 'stream-cursor';
+        para.appendChild(cursor);
+        var ci = 0;
+        function tick() {
+          if (ci < text.length) {
+            para.insertBefore(document.createTextNode(text[ci++]), cursor);
+            setTimeout(tick, SPEED_SAKHI + (Math.random() * SPEED_VAR));
+          } else {
+            if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+            pIdx++;
+            setTimeout(streamNext, 130);
+          }
+        }
+        tick();
+      }
+      streamNext();
+    }, DOT_DELAY);
+  }
+
+  /* ── Animate one complete Q&A pair ──────────────────────── */
+  function animatePair(pair) {
+    if (pair.done) return;
+    pair.done = true;
+    var userEl  = pair.userEl;
+    var sakhiEl = pair.sakhiEl;
+
+    reveal(userEl);
+    var bubble  = userEl.querySelector('.bubble-user');
+    var qText   = bubble.textContent;
+    typeInto(bubble, qText, SPEED_USER, 10, function () {
+      if (!sakhiEl) return;
+      setTimeout(function () { streamSakhiCard(sakhiEl, null); }, Q_TO_A_GAP);
+    });
+  }
+
+  /* ── Sakhi intro greeting ────────────────────────────────── */
+  function runIntro(onDone) {
+    var introEl = document.getElementById('sakhi-intro');
+    if (!introEl) { onDone && onDone(); return; }
+    reveal(introEl);
+    var textEl  = document.getElementById('sakhi-intro-text');
+    var llmWrap = document.getElementById('llm-row-wrap');
+    var msg = "Hi! I'm Sakhi. Om built me as Saathealth's AI trainer for Hospicash. I'll walk you through his two years here — the work, the numbers, and the honest feedback.";
+    typeInto(textEl, msg, 11, 4, function () {
+      if (llmWrap) {
+        llmWrap.style.display = '';
+        llmWrap.style.opacity = '0';
+        llmWrap.style.transition = 'opacity 0.45s ease';
+        setTimeout(function () { llmWrap.style.opacity = '1'; }, 40);
+      }
+      setTimeout(onDone, 900);
+    });
+  }
+
+  /* ── Collect all Q&A pairs from all chat threads ─────────── */
+  function collectPairs() {
+    var pairs = [];
+    document.querySelectorAll('.chat-thread').forEach(function (thread) {
+      var kids = Array.from(thread.children);
+      var i = 0;
+      while (i < kids.length) {
+        var el = kids[i];
+        if (el.id === 'sakhi-intro') { i++; continue; }
+        if (el.classList.contains('msg-user')) {
+          var next = kids[i + 1];
+          var hasSakhi = next && next.classList.contains('msg-sakhi');
+          pairs.push({ userEl: el, sakhiEl: hasSakhi ? next : null, done: false });
+          i += hasSakhi ? 2 : 1;
+        } else { i++; }
+      }
+    });
+    return pairs;
+  }
+
+  /* ── IntersectionObserver for scroll-triggered pairs ─────── */
+  function setupScrollTriggers(pairs) {
+    /* Fallback: no IntersectionObserver */
+    if (!('IntersectionObserver' in window)) {
+      pairs.forEach(function (p) {
+        if (p.userEl) reveal(p.userEl);
+        if (p.sakhiEl) reveal(p.sakhiEl);
+      });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var target = entry.target;
+        var pair = pairs.find(function (p) { return p.userEl === target; });
+        if (!pair || pair.done) return;
+        obs.unobserve(target);
+        animatePair(pair);
+      });
+    }, { rootMargin: '0px 0px -80px 0px', threshold: 0.05 });
+
+    /* Observe all pairs except the first (auto-plays after intro) */
+    pairs.slice(1).forEach(function (p) { obs.observe(p.userEl); });
+  }
+
+  /* ── INIT ─────────────────────────────────────────────────── */
+  var pairs = collectPairs();
+
+  /* Scroll triggers for pairs 1+ (before intro fires, so observer is ready) */
+  setupScrollTriggers(pairs);
+
+  /* Start sequence after 1.5 s */
+  setTimeout(function () {
+    runIntro(function () {
+      /* First pair auto-plays right after intro finishes */
+      if (pairs.length > 0) animatePair(pairs[0]);
+    });
+  }, 1500);
+})();
 
 /* ─── RADAR CHART ─── */
 (function () {
