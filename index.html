@@ -1144,24 +1144,24 @@
             <div class="voice-quote">"Open to experimenting and trying new things. Focus on building and maintaining good lanes of communication."</div>
           </div>
           <div class="voice-card">
-            <div class="voice-name">Colleague D</div>
-            <div class="voice-role">Colleague &nbsp;·&nbsp; conversation</div>
-            <div class="voice-quote">"High on energy and initiative. The focus area is getting clearer on the problem before getting into the solution."</div>
-          </div>
-          <div class="voice-card">
-            <div class="voice-name">Co-Founder &amp; CEO</div>
-            <div class="voice-role">Manager / senior colleague &nbsp;·&nbsp; conversation</div>
-            <div class="voice-quote">"Solve your boss's problem and your boss's boss's problem. Be able to sell the simplest of the simple thing."</div>
-          </div>
-          <div class="voice-card">
             <div class="voice-name">Colleague C</div>
             <div class="voice-role">Colleague &nbsp;·&nbsp; direct message</div>
             <div class="voice-quote">"You have a natural drive to understand how things work and genuine curiosity for tackling complex problems. Never lose that spark!"</div>
           </div>
           <div class="voice-card">
+            <div class="voice-name">Colleague D</div>
+            <div class="voice-role">Colleague &nbsp;·&nbsp; conversation</div>
+            <div class="voice-quote">"High on energy and initiative. The focus area is getting clearer on the problem before getting into the solution."</div>
+          </div>
+          <div class="voice-card">
             <div class="voice-name">Senior Colleague</div>
             <div class="voice-role">Senior colleague / mentor &nbsp;·&nbsp; conversation</div>
             <div class="voice-quote">"Understanding what is needed at the hour and just doing it. Write more, it gives you clarity of thought."</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-name">Co-Founder &amp; CEO</div>
+            <div class="voice-role">Manager / senior colleague &nbsp;·&nbsp; conversation</div>
+            <div class="voice-quote">"Solve your boss's problem and your boss's boss's problem. Be able to sell the simplest of the simple thing."</div>
           </div>
         </div>
 
@@ -1312,22 +1312,20 @@ document.addEventListener('visibilitychange', revealHeaders);
 
   /* ── Stream paragraphs then stagger-reveal rich elements ─── */
   function streamSakhiCard(sakhiEl, onDone) {
-    reveal(sakhiEl);
     var card = sakhiEl.querySelector('.sakhi-card');
-    if (!card) { onDone && onDone(); return; }
+    if (!card) { reveal(sakhiEl); onDone && onDone(); return; }
 
-    var nameEl = card.querySelector('.sakhi-name');
     /* Direct-child <p> tags are streamed; everything else is rich content */
     var paras   = Array.from(card.querySelectorAll(':scope > p'));
     var richEls = Array.from(card.children).filter(function (c) {
-      return c !== nameEl && c.tagName !== 'P';
+      return c.tagName !== 'P';
     });
 
     /* Screenshot card (if present) reveals FIRST before text streams */
     var screenshotEl = card.querySelector('.screenshot-card');
     var laterRich = richEls.filter(function (el) { return el !== screenshotEl; });
 
-    /* Hide everything except the screenshot card initially */
+    /* Prep ALL content before the element is revealed — eliminates flash */
     richEls.forEach(function (el) { el.classList.add('stream-hidden'); });
     paras.forEach(function (p) {
       p._savedText = p.textContent;
@@ -1335,9 +1333,10 @@ document.addEventListener('visibilitychange', revealHeaders);
       p.style.opacity = '0';
     });
 
-    /* Show typing dots */
+    /* Insert typing dots first, then reveal — element slides in showing dots only */
     var dots = makeDots();
-    card.insertBefore(dots, nameEl ? nameEl.nextSibling : card.firstChild);
+    card.insertBefore(dots, card.firstChild);
+    reveal(sakhiEl);
 
     setTimeout(function () {
       if (dots.parentNode) dots.parentNode.removeChild(dots);
@@ -1400,9 +1399,10 @@ document.addEventListener('visibilitychange', revealHeaders);
     var userEl  = pair.userEl;
     var sakhiEl = pair.sakhiEl;
 
-    reveal(userEl);
     var bubble  = userEl.querySelector('.bubble-user');
     var qText   = bubble.textContent;
+    bubble.textContent = '';   /* clear before reveal so bubble slides in empty */
+    reveal(userEl);
     typeInto(bubble, qText, SPEED_USER, 10, function () {
       if (!sakhiEl) return;
       setTimeout(function () { streamSakhiCard(sakhiEl, null); }, Q_TO_A_GAP);
