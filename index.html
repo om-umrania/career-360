@@ -355,6 +355,18 @@
       max-height: 300px;
       object-fit: cover;
       object-position: top;
+      cursor: pointer;
+      transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), filter 0.22s ease;
+    }
+
+    .screenshot-card img:hover {
+      transform: scale(1.04);
+      filter: brightness(1.05);
+    }
+
+    .screenshot-card img:active {
+      transform: scale(0.98);
+      transition-duration: 0.08s;
     }
 
     .screenshot-meta {
@@ -1729,20 +1741,44 @@ document.addEventListener('visibilitychange', revealHeaders);
     lbCnt.textContent = '360° Career Feedback · n=6 · 5-pt scale';
     lbPrev.style.visibility = 'hidden';
     lbNext.style.visibility = 'hidden';
-    lb.dataset.radarMode = '1';
+    lb.dataset.singleMode = '1';
     lb.classList.add('lb-open');
     document.body.style.overflow = 'hidden';
   });
 
   /* Restore nav buttons when lightbox closes (via MutationObserver) */
   new MutationObserver(function () {
-    if (!lb.classList.contains('lb-open') && lb.dataset.radarMode === '1') {
+    if (!lb.classList.contains('lb-open') && lb.dataset.singleMode === '1') {
       lbPrev.style.visibility = '';
       lbNext.style.visibility = '';
       lbCnt.textContent = '';
-      delete lb.dataset.radarMode;
+      delete lb.dataset.singleMode;
     }
   }).observe(lb, { attributes: true, attributeFilter: ['class'] });
+})();
+
+/* ─── SCREENSHOT → LIGHTBOX ─── */
+(function () {
+  var lb     = document.getElementById('lightbox');
+  var lbImg  = document.getElementById('lb-img');
+  var lbCnt  = document.getElementById('lb-counter');
+  var lbPrev = document.getElementById('lb-prev');
+  var lbNext = document.getElementById('lb-next');
+  if (!lb) return;
+
+  document.querySelectorAll('.screenshot-card img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      var meta = img.parentElement.querySelector('.screenshot-meta');
+      lbCnt.textContent = meta ? meta.textContent.trim() : '';
+      lbPrev.style.visibility = 'hidden';
+      lbNext.style.visibility = 'hidden';
+      lb.dataset.singleMode = '1';
+      lb.classList.add('lb-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
 })();
 </script>
 
